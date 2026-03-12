@@ -1,4 +1,3 @@
-import asyncio
 import logging
 import os
 from dotenv import load_dotenv
@@ -10,7 +9,7 @@ from livekit.agents import (
     cli,
     RoomInputOptions,
 )
-from livekit.plugins import deepgram, elevenlabs, groq, silero
+from livekit.plugins import deepgram, groq, silero
 
 load_dotenv()
 
@@ -35,7 +34,7 @@ PRICING:
 - Growth: $149/month — 500 minutes, 5 agents
 - Scale: $499/month — 2000 minutes, unlimited agents
 
-Technical details if asked: built on LiveKit, Groq LPU, Deepgram STT, ElevenLabs TTS.
+Technical details if asked: built on LiveKit, Groq LPU, Deepgram STT, Groq TTS.
 Response latency under 200ms.
 """
 
@@ -52,11 +51,7 @@ async def entrypoint(ctx: JobContext):
         vad=silero.VAD.load(),
         stt=deepgram.STT(model="nova-2", language="en-US"),
         llm=groq.LLM(model="llama-3.3-70b-versatile", temperature=0.7),
-        tts=elevenlabs.TTS(
-            voice_id="21m00Tcm4TlvDq8ikWAM",
-            model="eleven_turbo_v2_5",
-            api_key=os.getenv("ELEVEN_API_KEY") or os.getenv("ELEVENLABS_API_KEY"),
-        ),
+        tts=groq.TTS(model="playai-tts", voice="Celeste-PlayAI"),
         allow_interruptions=True,
         min_endpointing_delay=0.5,
     )
@@ -64,7 +59,7 @@ async def entrypoint(ctx: JobContext):
     await session.start(
         room=ctx.room,
         agent=DemoAgent(),
-        room_input_options=RoomInputOptions(close_on_disconnect=False),
+        room_input_options=RoomInputOptions(),
     )
 
     await session.generate_reply(
