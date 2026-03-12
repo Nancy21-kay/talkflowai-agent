@@ -71,13 +71,5 @@ async def entrypoint(ctx: JobContext):
         instructions="Greet the user warmly and ask how you can help them today."
     )
 
-    # Keep session alive until room is empty
-    await session.wait()
-
 if __name__ == "__main__":
-    cli.run_app(
-        WorkerOptions(
-            entrypoint_fnc=entrypoint,
-            worker_type="room",
-        )
-    )
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
