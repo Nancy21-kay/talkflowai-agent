@@ -53,7 +53,7 @@ async def entrypoint(ctx: JobContext):
         stt=deepgram.STT(model="nova-2", language="en-US"),
         llm=groq.LLM(model="llama-3.3-70b-versatile", temperature=0.7),
         tts=elevenlabs.TTS(
-            voice_id="21m00Tcm4TlvDq8ikWAM",  # "Rachel" - ElevenLabs built-in voice
+            voice_id="21m00Tcm4TlvDq8ikWAM",
             model="eleven_turbo_v2_5",
             api_key=os.getenv("ELEVEN_API_KEY") or os.getenv("ELEVENLABS_API_KEY"),
         ),
@@ -64,7 +64,7 @@ async def entrypoint(ctx: JobContext):
     await session.start(
         room=ctx.room,
         agent=DemoAgent(),
-        room_input_options=RoomInputOptions(),
+        room_input_options=RoomInputOptions(close_on_disconnect=False),
     )
 
     await session.generate_reply(
