@@ -51,7 +51,7 @@ async def entrypoint(ctx: JobContext):
         vad=silero.VAD.load(),
         stt=deepgram.STT(model="nova-2", language="en-US"),
         llm=groq.LLM(model="llama-3.3-70b-versatile", temperature=0.7),
-        tts=elevenlabs.TTS(voice="Rachel"),
+        tts=elevenlabs.TTS(voice_id="21m00Tcm4TlvDq8ikWAM"),  # Rachel
         allow_interruptions=True,
         min_endpointing_delay=0.5,
     )
