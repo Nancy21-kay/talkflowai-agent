@@ -9,7 +9,7 @@ from livekit.agents import (
     cli,
     RoomInputOptions,
 )
-from livekit.plugins import deepgram, groq, silero
+from livekit.plugins import deepgram, groq, silero, elevenlabs
 
 load_dotenv()
 
@@ -51,7 +51,7 @@ async def entrypoint(ctx: JobContext):
         vad=silero.VAD.load(),
         stt=deepgram.STT(model="nova-2", language="en-US"),
         llm=groq.LLM(model="llama-3.3-70b-versatile", temperature=0.7),
-        tts=groq.TTS(model="canopylabs/orpheus-v1-english", voice="leah"),
+        tts=elevenlabs.TTS(voice="Rachel"),
         allow_interruptions=True,
         min_endpointing_delay=0.5,
     )
