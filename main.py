@@ -7,7 +7,6 @@ from livekit.agents import (
     JobContext,
     WorkerOptions,
     cli,
-    RoomInputOptions,
 )
 from livekit.plugins import deepgram, groq, silero, elevenlabs
 
@@ -34,7 +33,7 @@ PRICING:
 - Growth: $149/month — 500 minutes, 5 agents
 - Scale: $499/month — 2000 minutes, unlimited agents
 
-Technical details if asked: built on LiveKit, Groq LPU, Deepgram STT, Groq TTS.
+Technical details if asked: built on LiveKit, Groq LPU, Deepgram STT, ElevenLabs TTS.
 Response latency under 200ms.
 """
 
@@ -53,7 +52,7 @@ async def entrypoint(ctx: JobContext):
         llm=groq.LLM(model="llama-3.3-70b-versatile", temperature=0.7),
         tts=elevenlabs.TTS(
             voice_id="21m00Tcm4TlvDq8ikWAM",  # Rachel - warm female voice
-            model="eleven_flash_v2_5",          # fastest model, best for live demos
+            model="eleven_turbo_v2_5",
         ),
         allow_interruptions=True,
         min_endpointing_delay=0.5,
@@ -62,7 +61,6 @@ async def entrypoint(ctx: JobContext):
     await session.start(
         room=ctx.room,
         agent=DemoAgent(),
-        room_input_options=RoomInputOptions(),
     )
 
     await session.generate_reply(
