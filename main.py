@@ -8,7 +8,7 @@ from livekit.agents import (
     WorkerOptions,
     cli,
 )
-from livekit.plugins import deepgram, groq, silero, elevenlabs
+from livekit.plugins import deepgram, groq, silero, cartesia
 
 load_dotenv()
 
@@ -33,7 +33,7 @@ PRICING:
 - Growth: $149/month — 500 minutes, 5 agents
 - Scale: $499/month — 2000 minutes, unlimited agents
 
-Technical details if asked: built on LiveKit, Groq LPU, Deepgram STT, ElevenLabs TTS.
+Technical details if asked: built on LiveKit, Groq LPU, Deepgram STT, Cartesia TTS.
 Response latency under 200ms.
 """
 
@@ -50,9 +50,9 @@ async def entrypoint(ctx: JobContext):
         vad=silero.VAD.load(),
         stt=deepgram.STT(model="nova-2", language="en-US"),
         llm=groq.LLM(model="llama-3.3-70b-versatile", temperature=0.7),
-        tts=elevenlabs.TTS(
-            voice_id="21m00Tcm4TlvDq8ikWAM",  # Rachel - warm female voice
-            model="eleven_turbo_v2_5",
+        tts=cartesia.TTS(
+            api_key=os.environ.get("CARTESIA_API_KEY"),
+            voice="79a125e8-cd45-4c13-8a67-188112f4dd22",  # Barbra - warm female voice
         ),
         allow_interruptions=True,
         min_endpointing_delay=0.5,
