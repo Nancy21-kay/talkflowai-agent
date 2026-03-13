@@ -1,2 +1,3 @@
-livekit-agents[groq,deepgram,elevenlabs,silero]>=0.12.0
+livekit-agents[groq,deepgram,silero]>=0.12.0
 python-dotenv>=1.0.0
+livekit-plugins-cartesia
