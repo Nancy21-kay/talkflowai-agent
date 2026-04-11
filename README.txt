@@ -1,5 +1,5 @@
 ==============================================
-  VOICEAI AGENT — SETUP GUIDE
+  TALKFLO — SETUP GUIDE
 ==============================================
 
 REQUIREMENTS:
@@ -41,4 +41,3 @@ No extra setup needed.
 
 4. The agent (Python) still needs to run on your machine or a server.
    For production, host it on a VPS (e.g. DigitalOcean, Railway).
-
